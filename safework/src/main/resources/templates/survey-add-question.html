@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Add Question</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<h1>Add Question</h1>
+<form th:action="@{/surveys/{surveyId}/questions/add(surveyId=${surveyId})}" th:object="${question}" method="post">
+    <div>
+        <label for="questionText">Question Text:</label>
+        <input type="text" id="questionText" th:field="*{text}" required>
+    </div>
+    <div>
+        <label for="questionType">Question Type:</label>
+        <select id="questionType" th:field="*{type}">
+            <option value="RADIO">선택항목 2개</option>
+            <option value="CHECKBOX">선택항목 5개</option>
+        </select>
+    </div>
+
+    <!-- 라디오버튼 형식의 답변 입력 필드 -->
+    <div id="radioOptions" style="display: none;">
+        <label>Options:</label><br>
+        <input type="text" name="radioOption" placeholder="Option 1"><br>
+        <input type="text" name="radioOption" placeholder="Option 2"><br>
+        <!-- 필요한 만큼 라디오버튼 옵션 입력 필드를 추가 -->
+    </div>
+
+    <!-- 체크박스 형식의 답변 입력 필드 -->
+    <div id="checkboxOptions" style="display: none;">
+        <label>Options:</label><br>
+        <input type="text" name="checkboxOption" placeholder="Option 1"><br>
+        <input type="text" name="checkboxOption" placeholder="Option 2"><br>
+        <input type="text" name="checkboxOption" placeholder="Option 3"><br>
+        <input type="text" name="checkboxOption" placeholder="Option 4"><br>
+        <input type="text" name="checkboxOption" placeholder="Option 5"><br>
+        <!-- 필요한 만큼 체크박스 옵션 입력 필드를 추가 -->
+    </div>
+
+    <div>
+        <button type="submit">Add Question</button>
+    </div>
+</form>
+<a th:href="@{/surveys/{id}/questions(id=${surveyId})}">Back to Question List</a>
+<script>
+    // 질문 유형이 변경될 때마다 입력 필드를 표시하거나 숨깁니다.
+    document.getElementById("questionType").addEventListener("change", function() {
+        var radioOptions = document.getElementById("radioOptions");
+        var checkboxOptions = document.getElementById("checkboxOptions");
+
+        if (this.value === "RADIO") {
+            radioOptions.style.display = "block";
+            checkboxOptions.style.display = "none";
+        } else if (this.value === "CHECKBOX") {
+            radioOptions.style.display = "none";
+            checkboxOptions.style.display = "block";
+        } else {
+            radioOptions.style.display = "none";
+            checkboxOptions.style.display = "none";
+        }
+    });
+</script>
+</body>
+</html>

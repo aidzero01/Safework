@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Question List</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<h1>Question List</h1>
+<a th:href="@{/surveys/{id}/questions/add(id=${surveyId})}">Add Question</a>
+<table>
+    <thead>
+    <tr>
+        <th>Question</th>
+        <th>Type</th>
+        <th>Answers</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="question : ${questions}">
+        <td th:text="${question.text}">Question Text</td>
+        <td th:text="${question.type}">Question Type</td>
+        <td>
+            <ul>
+                <li th:each="answer : ${question.answers}" th:text="${answer.text}">Answer Text</li>
+            </ul>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/surveys">Back to Survey List</a>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Survey</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<h1>Create Survey</h1>
+<form th:action="@{/surveys/create}" th:object="${survey}" method="post">
+    <div>
+        <label for="title">Survey Title:</label>
+        <input type="text" id="title" th:field="*{title}" required>
+    </div>
+    <div>
+        <label for="description">Survey Description:</label>
+        <textarea id="description" th:field="*{description}" required></textarea>
+    </div>
+    <div>
+        <button type="submit">Create Survey</button>
+    </div>
+</form>
+<a href="/surveys">Back to Survey List</a>
+</body>
+</html>
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Create Survey</title>-->
+<!--    <link rel="stylesheet" type="text/css" href="/css/style.css">-->
+<!--    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Create Survey</h1>-->
+<!--<form th:action="@{/surveys/create}" th:object="${survey}" method="post">-->
+<!--    <div>-->
+<!--        <label for="title">Survey Title:</label>-->
+<!--        <input type="text" id="title" th:field="*{title}" required>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <label for="description">Survey Description:</label>-->
+<!--        <textarea id="description" th:field="*{description}" required></textarea>-->
+<!--    </div>-->
+<!--    <div id="questions">-->
+<!--        <div th:each="question, questionStat : *{getSurveyQuestions()}">-->
+<!--            <div>-->
+<!--                <label th:for="${'questionText' + questionStat.index}">Question:</label>-->
+<!--                <input type="text" th:field="*{questions[questionStat.index].questionText}" required>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <label th:for="${'questionType' + questionStat.index}">Question Type:</label>-->
+<!--                <select th:field="*{questions[questionStat.index].questionType}">-->
+<!--                    <option value="SHORT_ANSWER">Short Answer</option>-->
+<!--                    <option value="LONG_ANSWER">Long Answer</option>-->
+<!--                    <option value="RADIO">Radio Button</option>-->
+<!--                    <option value="CHECKBOX">Checkbox</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--            <div id="answers" th:each="answer, answerStat : *{questions[questionStat.index].answers}">-->
+<!--                <div>-->
+<!--                    <label th:for="${'answerText' + questionStat.index + '_' + answerStat.index}">Answer:</label>-->
+<!--                    <input type="text" th:field="*{questions[questionStat.index].answers[answerStat.index].text}" required>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <button type="button" th:onclick="'addAnswer(' + questionStat.index + ')'">Add Answer</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <button type="button" id="addQuestion">Add Question</button>-->
+<!--    <div>-->
+<!--        <button type="submit">Create Survey</button>-->
+<!--    </div>-->
+<!--</form>-->
+
+<!--<script>-->
+<!--    $(document).ready(function() {-->
+<!--        $('#addQuestion').click(function() {-->
+<!--            const questionIndex = $('#questions > div').length;-->
+<!--            const newQuestion = `<div>-->
+<!--                    <label for="questions${questionIndex}.questionText">Question:</label>-->
+<!--                    <input type="text" id="questions${questionIndex}.questionText" name="questions[${questionIndex}].questionText" required>-->
+<!--                    <label for="questions${questionIndex}.questionType">Question Type:</label>-->
+<!--                    <select id="questions${questionIndex}.questionType" name="questions[${questionIndex}].questionType">-->
+<!--                        <option value="SHORT_ANSWER">Short Answer</option>-->
+<!--                        <option value="LONG_ANSWER">Long Answer</option>-->
+<!--                        <option value="RADIO">Radio Button</option>-->
+<!--                        <option value="CHECKBOX">Checkbox</option>-->
+<!--                    </select>-->
+<!--                    <div id="answers${questionIndex}">-->
+<!--                        <div>-->
+<!--                            <label for="questions${questionIndex}.answers0.text">Answer:</label>-->
+<!--                            <input type="text" id="questions${questionIndex}.answers0.text" name="questions[${questionIndex}].answers[0].text" required>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <button type="button" onclick="addAnswer(${questionIndex})">Add Answer</button>-->
+<!--                </div>`;-->
+<!--            $('#questions').append(newQuestion);-->
+<!--        });-->
+<!--    });-->
+
+<!--    function addAnswer(questionIndex) {-->
+<!--        const answerIndex = $(`#answers${questionIndex} > div`).length;-->
+<!--        const newAnswer = `<div>-->
+<!--                <label for="questions${questionIndex}.answers${answerIndex}.text">Answer:</label>-->
+<!--                <input type="text" id="questions${questionIndex}.answers${answerIndex}.text" name="questions[${questionIndex}].answers[${answerIndex}].text" required>-->
+<!--            </div>`;-->
+<!--        $(`#answers${questionIndex}`).append(newAnswer);-->
+<!--    }-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->

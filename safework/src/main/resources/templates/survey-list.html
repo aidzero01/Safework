@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Survey List</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<h1>설문 리스트</h1>
+<div th:if="${username == 'ADMIN'}">
+    <a class="button" th:href="@{/surveys/create}">Create New Survey</a>
+</div>
+<table>
+    <thead>
+    <tr>
+        <th>제목</th>
+        <th>설명</th>
+        <th>생성 날짜</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="survey : ${surveys}">
+        <td th:text="${survey.title}">Survey Title</td>
+        <td th:text="${survey.description}">Survey Description</td>
+        <td th:text="${#temporals.format(survey.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
+        <td th:if="${username == 'ADMIN'}">
+            <form th:action="@{/surveys/{id}/edit(id=${survey.idx})}" style="display:inline;">
+                <button type="submit">Edit</button>
+            </form>
+            <form th:action="@{/surveys/{id}/questions(id=${survey.idx})}" style="display:inline;">
+                <button type="submit">View Questions</button>
+            </form>
+            <form th:action="@{/surveys/{id}/delete(id=${survey.idx})}" method="post" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
